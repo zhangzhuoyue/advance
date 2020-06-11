@@ -1,0 +1,12 @@
+1. 
+```
+jdbc version8.0文档上有说明：Connector/J 8.0 provides compatibility with all the functionality of MySQL 5.5, 5.6, 5.7, and 8.0（都兼容）
+jdbc 8  的驱动名：com.mysql.cj.jdbc.Driver
+```
+2.
+```
+ jdbc.url=jdbc:mysql://localhost:3306/spring_day02   
+jdbc.url=jdbc:mysql:///spring_day02  
+    多的一根杆就默认表示了本地服务器地址 + 默认端口号,这样的条件建立的条件就是当前的服务器地址。
+```
+   
