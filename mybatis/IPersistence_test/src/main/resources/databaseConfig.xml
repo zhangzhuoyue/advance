@@ -1,0 +1,6 @@
+<configuration>
+    <properties name="driverClass" value="com.mysql.cj.jdbc.Driver"></properties>
+    <properties name="url" value="jdbc:mysql://192.168.249.153:3306/mybatis?characterEncoding=utf-8"></properties>
+    <properties name="user" value="root"></properties>
+    <properties name="pwd" value="123456-abc"></properties>
+</configuration>
