@@ -18,10 +18,10 @@ public class Jdbc_test {
             //获取预处理statement
             statement = connection.prepareStatement(sql);
             //设置参数值，第一个参数是sql语句中参数的序号（从1开始），第二个参数是参数值
-            statement.setString(1,"3");
+            statement.setString(1, "3");
             //向数据库发送sql进行查询，获取结果集
             resultSet = statement.executeQuery();
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String username = resultSet.getString("username");
                 String password = resultSet.getString("password");
@@ -37,8 +37,8 @@ public class Jdbc_test {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-
-            if (resultSet != null){
+        //释放资源
+            if (resultSet != null) {
                 try {
                     resultSet.close();
                 } catch (SQLException e) {
@@ -46,7 +46,7 @@ public class Jdbc_test {
                 }
             }
 
-            if (statement != null){
+            if (statement != null) {
                 try {
                     statement.close();
                 } catch (SQLException e) {
@@ -54,7 +54,7 @@ public class Jdbc_test {
                 }
             }
 
-            if (connection != null){
+            if (connection != null) {
                 try {
                     connection.close();
                 } catch (SQLException e) {
