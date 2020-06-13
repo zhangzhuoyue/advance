@@ -1,6 +1,11 @@
 <mapper namespace="product">
-    <select id="selectOne" resultType="" paramType="">
+    <select id="selectOne" paramterType="pojo.User" resultType="pojo.User" >
+            select * from user where id = #{id} and username = #{username}
+    </select>
 
+    <select id="selectList" resultType="pojo.User">
+
+        select * from user
     </select>
 
 </mapper>

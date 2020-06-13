@@ -1,6 +1,10 @@
 <configuration>
     <properties name="driverClass" value="com.mysql.cj.jdbc.Driver"></properties>
-    <properties name="url" value="jdbc:mysql://192.168.249.153:3306/mybatis?characterEncoding=utf-8"></properties>
+    <properties name="url" value="jdbc:mysql://192.168.249.155:3306/mybatis?characterEncoding=utf-8"></properties>
     <properties name="user" value="root"></properties>
     <properties name="pwd" value="123456-abc"></properties>
+    <!--1.在数据库配置文件中存储sql配置文件地址，将数据库配置文件加载到内存中，可以随时获取sql配置文件
+        2.将sql配置文件放到配置文件中，避免在加载sql配置文件时，存在的硬编码问题
+    -->
+    <resource name="mappingPath" value = "productMapping.xml"></resource>
 </configuration>
