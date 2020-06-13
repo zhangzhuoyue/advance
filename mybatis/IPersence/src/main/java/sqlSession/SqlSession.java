@@ -1,0 +1,18 @@
+package sqlSession;
+
+import javax.jws.soap.SOAPBinding;
+import java.util.List;
+
+/**
+ * @author zzy
+ * @date 2020/6/13 14:32
+ */
+public interface SqlSession {
+    //查询所有
+    public <T> List<T> selectList(String statementId, Object... params) throws Exception;
+
+    //根据条件查询单个条件
+    public <T> T selectOne(String statementId,Object... params) throws Exception;
+
+
+}
