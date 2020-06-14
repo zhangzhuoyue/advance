@@ -64,7 +64,7 @@ public class XMLConfigBuilder {
             Element next = resource.next();
             String path = next.attributeValue("value");
             XMLMappingBuilder mapperingbuilder = new XMLMappingBuilder(configuration);
-            configuration = mapperingbuilder.parseXMLMappering("/"+path);
+            configuration = mapperingbuilder.parseXMLMappering(path);
         }
         return configuration;
     }
