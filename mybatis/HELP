@@ -1,1 +1,74 @@
-### 
+### class.getResourceAsStream
+* 路径问题
+---
+### 泛型问题
+
+---
+### 反射
+```
+https://www.cnblogs.com/onlywujun/p/3519037.html
+使用反射遇到的问题
+https://blog.csdn.net/lc14750429/article/details/82250718
+```
+---
+### xml ->bean   bean->xml  dom4j
+
+---
+### 内省和反射
+```
+https://blog.csdn.net/weixin_42069143/article/details/82119724
+```
+---
+### BigDecimal
+```
+关于JDBC中 ResultSet 对象的 getObject() 方法返回的数字是 BigDecimal 型
+BigDecimal:直接显示，使用的是科学计数法，使用intvalue()进行转换
+Object columnValue = resultSet.getObject(columnLabel);
+if(columnValue instanceof BigDecimal){
+    columnValue = ((BigDecimal) columnValue).intValue();
+}
+使用 intValue() 方法进行强转即可
+
+```
+### mybatis 简介
+* 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
