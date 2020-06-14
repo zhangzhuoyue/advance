@@ -1,4 +1,6 @@
-<mapper namespace="product">
+<!--<mapper namespace="product">namespace的名字不能乱起，因为接口使用了代理模式，在dialing模式下，无法直接配置文件中
+namespace和sql的id，所以将namespace设置为dao类的全路径名，id设置为接口中的方法名，可以在代理类中获取，从而定位要执行的
+sql，【从sql配置文件封装对象中获取】
     <select id="selectOne" paramterType="pojo.User" resultType="pojo.User" >
             select * from user where id = #{id} and username = #{username}
     </select>
@@ -7,5 +9,17 @@
 
         select * from user
     </select>
+
+</mapper>-->
+
+<mapper namespace="dao.UserDao">
+<select id="findStudentByCondition" paramterType="pojo.User" resultType="pojo.User" >
+    select * from user where id = #{id} and username = #{username}
+</select>
+
+<select id="findAll" resultType="pojo.User">
+
+    select * from user
+</select>
 
 </mapper>
