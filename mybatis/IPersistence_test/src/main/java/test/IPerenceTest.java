@@ -1,16 +1,12 @@
 package test;
 
-import config.XMLConfigBuilder;
 import io.IResources;
-import org.dom4j.DocumentException;
 import org.junit.Test;
-import pojo.Configuration;
 import pojo.User;
 import sqlSession.SqlSession;
 import sqlSession.SqlSessionFactory;
 import sqlSession.SqlSessionFactoryBuilder;
 
-import java.beans.PropertyVetoException;
 import java.io.InputStream;
 import java.util.List;
 
@@ -18,7 +14,7 @@ public class IPerenceTest {
     @Test
     public void test() throws Exception {
         //获取文件输入流
-        InputStream resourceAsStream = IResources.getResourceAsStream("/databaseConfig.xml");
+        InputStream resourceAsStream = IResources.getResourceAsStream("/config/databaseConfig.xml");
         SqlSessionFactoryBuilder sqlSessionFactoryBuilder = new SqlSessionFactoryBuilder();
         SqlSessionFactory sqlSessionFactory = sqlSessionFactoryBuilder.build(resourceAsStream);
         SqlSession sqlSession = sqlSessionFactory.openSqlSession();
