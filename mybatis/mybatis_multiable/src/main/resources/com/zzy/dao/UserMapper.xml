@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zzy.dao.UserMapper">
+
+    <resultMap id="orderlist" type="com.zzy.pojo.User">
+        <id property="id" column="oid"></id>
+
+
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="birthady" column="birthady"/>
+        <association property="orderList" javaType="com.zzy.pojo.Order">
+            <id property="id" column="id"></id>
+            <result property="price" column="price"></result>
+            <result property="name" column="name"></result>
+        </association>
+
+    </resultMap>
+
+    <select id="findOrders" resultMap="orderlist">
+        select o.id oid ,o.price,o.name,u.* from   `user` u  left join  `order` o  on o.uid = u.id where u.id = #{id}
+    </select>
+
+</mapper>
+
