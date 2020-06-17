@@ -3,6 +3,7 @@ package com.zzy.pojo;
 import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author zzy
@@ -13,7 +14,33 @@ public class User {
     public String username;
     public String password;
     public String birthady;
-    public List<Orle> orderList;
+    //public List<Orle> orderList;
+    public Order order;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(birthady, user.birthady) &&
+                Objects.equals(order, user.order);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, birthady, order);
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
 
     public Integer getId() {
         return id;
@@ -47,14 +74,6 @@ public class User {
         this.birthady = birthady;
     }
 
-    public List<Orle> getOrderList() {
-        return orderList;
-    }
-
-    public void setOrderList(List<Orle> orderList) {
-        this.orderList = orderList;
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -62,7 +81,7 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", birthady='" + birthady + '\'' +
-                ", orderList=" + orderList +
+                ", order=" + order +
                 '}';
     }
 }

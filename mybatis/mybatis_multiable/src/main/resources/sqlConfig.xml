@@ -20,9 +20,11 @@
     </environments>
 
     <mappers>
-
+        <!--如果使用注解，则可以使用class扫描接口路径，做一个代理，也可使用package扫描一个包-->
         <!--<mapper resource="UserMapper.xml"></mapper>-->
+        <!--如果使用注解开发，则将xml文件放到和接口不同名的路径否则会冲突-->
         <package name="com.zzy.dao"/>
+       <!-- <mapper class="com.zzy.dao.UserMapperDao"/>-->
 
     </mappers>
 </configuration>

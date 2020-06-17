@@ -8,7 +8,7 @@ public class Order {
     public Integer id;
     public String name;
     public String price;
-    public User user;
+    //public User user;
 
     public Integer getId() {
         return id;
@@ -34,13 +34,7 @@ public class Order {
         this.price = price;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     @Override
     public String toString() {
@@ -48,7 +42,7 @@ public class Order {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price='" + price + '\'' +
-                ", user=" + user +
+
                 '}';
     }
 }
