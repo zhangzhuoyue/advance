@@ -24,5 +24,24 @@
         select o.id oid ,o.price,o.name,u.* from   `user` u  left join  `order` o  on o.uid = u.id where u.id = #{id}
     </select>
 
+
+
+    <resultMap id="userRolelist" type="com.zzy.pojo.User">
+        <id property="id" column="uid"></id>
+        <result property="username" column="username"/>
+        <!--<result property="password" column="password"/>
+        <result property="birthady" column="birthady"/>-->
+        <collection property="orderList" ofType="com.zzy.pojo.Orle">
+            <id property="id" column="id"></id>
+            <result property="rolename" column="rolename"></result>
+
+        </collection>
+    </resultMap>
+    <!--用户和中间表是左连接，用户可能没有权限-->
+    <select id="findUserAndOrleAll" resultMap="userRolelist">
+    select user.id uid,user.username,user_role.userid,user_role.roleid,role.* from user left join user_role on user.id = user_role.userid
+                                 inner join role on user_role.roleid = role.id
+    </select>
+
 </mapper>
 

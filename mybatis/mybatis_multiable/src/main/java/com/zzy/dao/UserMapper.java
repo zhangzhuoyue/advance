@@ -12,4 +12,6 @@ import java.util.List;
 public interface UserMapper {
 
     public User findOrders(int id);
+
+    public List<User> findUserAndOrleAll();
 }

@@ -1,5 +1,7 @@
 package com.zzy.pojo;
 
+import com.sun.org.apache.xpath.internal.operations.Or;
+
 import java.util.List;
 
 /**
@@ -11,7 +13,7 @@ public class User {
     public String username;
     public String password;
     public String birthady;
-    public List<Order> orderList;
+    public List<Orle> orderList;
 
     public Integer getId() {
         return id;
@@ -45,11 +47,11 @@ public class User {
         this.birthady = birthady;
     }
 
-    public List<Order> getOrderList() {
+    public List<Orle> getOrderList() {
         return orderList;
     }
 
-    public void setOrderList(List<Order> orderList) {
+    public void setOrderList(List<Orle> orderList) {
         this.orderList = orderList;
     }
 
