@@ -9,13 +9,13 @@ import java.util.Objects;
  * @author zzy
  * @date 2020/6/16 22:08
  */
-public class User {
+public class User<T> {
     public Integer id;
     public String username;
     public String password;
     public String birthady;
     //public List<Orle> orderList;
-    public Order order;
+    public T order;
 
     @Override
     public boolean equals(Object o) {
@@ -34,11 +34,11 @@ public class User {
         return Objects.hash(id, username, password, birthady, order);
     }
 
-    public Order getOrder() {
+    public T getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(T order) {
         this.order = order;
     }
 

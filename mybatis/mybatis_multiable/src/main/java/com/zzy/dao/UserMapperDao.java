@@ -2,6 +2,7 @@ package com.zzy.dao;
 
 import com.zzy.pojo.Order;
 import com.zzy.pojo.User;
+import javafx.collections.ListChangeListener;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public interface UserMapperDao {
     @Delete("delete from user where id =#{id}")
     public int deleteUserById(Integer id);
 
-    /*根据用户查询订单 一对多关系*/
+    /*根据用户查询订单 一对一关系*/
     @Results({
             @Result(property = "id",column = "id"),
             @Result(property = "username",column = "username"),
@@ -39,4 +40,16 @@ public interface UserMapperDao {
     /*在类明上加上``防止和数据库关键字冲突，另外注意使用的一对一关系还是一对多关系，如果在编写是返现类型不匹配
     * 可能是字段名不匹配，也可能是注解声明的是一对一，实体对象封装的是一对多，在陈关系不匹配*/
     public User findUserOrders(int i);
+
+
+    /*一对多查询，一个用户对应多个订单*/
+    @Results({
+            @Result(property = "id" ,column = "id"),
+            @Result(property = "username",column = "username"),
+            @Result(property = "password",column = "password"),
+            @Result(property = "order",column = "id" ,javaType = List.class,
+            many = @Many(select = "com.zzy.dao.OrderMapperDao.findOrders"))
+    })
+    @Select("select * from user where id=#{id}")
+    public  User<Order> finduserOrders(Integer id);
 }
