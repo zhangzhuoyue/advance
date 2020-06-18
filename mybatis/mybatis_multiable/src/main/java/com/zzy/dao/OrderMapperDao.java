@@ -16,6 +16,12 @@ public interface OrderMapperDao {
     @Select(("select * from `order` where id=#{id} and uid=#{uid}"))
     public Order findOrderByuserid(Integer id,Integer uid);
 
+
+
+
+    /*
+    * 在一对多关系中，该方法的返回值类型List<Order>，就是对应的User对象的T
+    * */
     @Select("select * from `order` where id = #{id}")
     @Results({
             @Result(property = "id",column = "id"),
