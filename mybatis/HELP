@@ -46,14 +46,14 @@
  ```
 
 * 一级缓存  二级缓存解释
-   ```
+   ``` 
     ①、一级缓存是SqlSession级别的缓存。在操作数据库时需要构造sqlSession对象,在对象中有一个数据结构(HashMap)用于存储缓存数据。不同的sqlSession之间的缓存数据区域(HashMap)是互相不影响的。
     ②、二级缓存是mapper级别的缓存,多个SglSession去操作同一个Mapper的sql语句,多个sglSession可以共用二级缓存,二级缓存是跨SqlSession的
   ```
 
 * 一级缓存如何存储，如何匹配
     ```
-  1.存储结果结构hashamap，key：statementid，sql，参数  ；value：查询到的结果
+  1.存储结果结构hashamap，key：statementid，sql，参数 ，分页对象rowBounds ；value：查询到的结果
   ```
     
 * 一级缓存的失效
@@ -109,14 +109,57 @@ if(columnValue instanceof BigDecimal){
 使用 intValue() 方法进行强转即可
 
 ```
+### 12 控制台打印
+    ```
+    1. log4j:WARN No appenders could be found for logger (org.apache.ibatis.logging.LogFactory).
+       当找不到默认配置文件log4j.properties和log4j.xml，并且应用程序不执行显式配置时，就会发生这种情况
+    ```
+---
 
+### 以及缓存源码分析
 
+    ```
+    源码分析：
+     1. 一级缓存，数据存放在hashmap中
+     2.缓存的创建时间实在查询，在查询是匹配当前生成的cacheKey在存储容器中是否可以匹配到
+     3. 一级缓存在sqlsession中有效，sqlsession关闭或刷新，或者存在数据更新删除，则缓存失效
+     
+     1. 二级缓存存储结构是hashmap
+     2. 开启了二级缓存后,还需要将要缓存的pojo实现Serializable接口,为了将缓存数据取出执行反序列化操作,因为二级缓存数据存储介质多种多样,不一定只存在内存中,有可能存在硬盘中,如果我们要再取这个缓存的话,就需要反序列化了。所以mybatis中的pojo都去实现Serializable接
+     3. 在sqlsesion提交或者关闭后，二级缓存生效
+     3.如果存在数据更新删除，二级缓存失效，但是二级缓存并不是立即失效，他有刷新间隔，
+       缓存策略：二级缓存的内存淘汰策略LRU 最近最少使用，FIFO先进先出，SOFT软引用：溢出基于垃圾回收期状态和软引用规则对象；weak弱引用：更积极溢出基于垃圾回收器状态和弱引用规则对象
+     4. 缓存对象个数，默认1000 、
+     5. 是否只读
+     6.blocking 是否使用阻塞性缓存，读/写时加入JNI的锁进行操作，默认false，加锁可保证线程安全【因为他的缓存使用的是hashmap】
+     7.以毫秒为单位，刷新一次，刷新后缓存失效，不在读取缓存，执行sql，如果不指定刷新间隔，默认永久有效【没有更新和删除操作。】
+     
+     ④、 useCache和flushCache
+     	mybatis中还可以配置userCache和flushCache等配置项, 
+     	1. userCache是用来设置是否禁用二级缓存的,在statement中设置useCache=false可以禁用当前select语句的二级缓存,即每次查询都会发出sql去查询,默认情况是true,即该sq1使用二级缓存
+           这种情况是针对每次查询都需要最新的数据sql,要设置成useCache-false,禁用二级缓存,直接从数据库中获取。
+        2. flushCache ：在mapper的同一个namespace中,如果有其它insert, update, delete操作数据后需要刷新缓存,如果不执行刷新缓存会出现脏读。
+        设置statement配置中的flushCache="true"属性,默认情况下为true,即刷新缓存,如果改成false则不会刷新。使用缓存时如果手动修改数据库表中的查询数据会出现脏读。
+        一般下执行完commit操作都需要刷新缓存, flushCache-true表示刷新缓存,这样可以避免数据库脏读。所以我们不用设置,默认即可
+    ```
+---
+###  soft软引用  weak 弱引用
+  
+*  soft软引用
 
+* weak 弱引用
 
+---
+### @Option(timeout=10,useCache=false,flushCache= Options.FlushCachePolicy.TRUE,fetchSize = 2)
+    ```
+    timeout 设置sql超时时间，时间单位秒
+    useCache 使用二级缓存，默认true使用
+    flushCache 默认true ，在update insert 二级缓存失效
+    fetchSize ：获取结果集总条数设定
+    ```
+---
 
-
-
-
+### 插叙大流量数据使用mybatis流式查询
 
 
 
