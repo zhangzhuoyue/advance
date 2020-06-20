@@ -30,37 +30,38 @@ public class mybatisTest {
     @Test
     public void test(){
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-       User user = mapper.findOrders(4);
-        System.out.println(user);
+//       User user = mapper.findOrders(4);
+//        System.out.println(user);
     }
 
     @Test
     public void test1(){
-        orderMapper mapper = sqlSession.getMapper(orderMapper.class);
-        User users = mapper.findUserAndOrder(4);
-        System.out.println(users);
+//        orderMapper mapper = sqlSession.getMapper(orderMapper.class);
+//        User users = mapper.findUserAndOrder(4);
+        //System.out.println(users);
     }
 
     @Test
     public void test12(){
         UserMapper mapper = sqlSession.getMapper(UserMapper.class);
-        List<User> users = mapper.findUserAndOrleAll();
-        System.out.println(users);
+       // List<User> users = mapper.findUserAndOrleAll();
+      //  System.out.println(users);
     }
 
     @Test
-    public void test3(){
+    public void insert(){
         UserMapperDao mapper = sqlSession.getMapper(UserMapperDao.class);
         User user = new User();
-        user.setId(4);
+        user.setId(20);
         user.setUsername("张张");
         user.setPassword("123gr");
         int i = mapper.addUser(user);
         System.out.println(i);
+        System.out.println(user.getId());
     }
 
     @Test
-    public void test4(){
+    public void select(){
         UserMapperDao mapper = sqlSession.getMapper(UserMapperDao.class);
         User user = new User();
 
@@ -69,7 +70,7 @@ public class mybatisTest {
     }
 
     @Test
-    public void test5(){
+    public void delete(){
         UserMapperDao mapper = sqlSession.getMapper(UserMapperDao.class);
         User user = new User();
         user.setId(4);
@@ -81,7 +82,7 @@ public class mybatisTest {
     }
 
     @Test
-    public void test6(){
+    public void update(){
         UserMapperDao mapper = sqlSession.getMapper(UserMapperDao.class);
         User user = new User();
         user.setId(4);
@@ -106,5 +107,11 @@ public class mybatisTest {
         User<Order> orderUser = mapper.finduserOrders(4);
         System.out.println(orderUser);
     }
+
+    @Test
+    public void test4(){
+
+    }
+
 
 }
