@@ -11,5 +11,5 @@ import java.util.List;
  */
 public interface orderMapper {
 
-    public User findUserAndOrder(int id);
+    //public User findUserAndOrder(int id);
 }

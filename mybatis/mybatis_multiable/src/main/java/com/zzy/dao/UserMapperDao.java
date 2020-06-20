@@ -5,6 +5,7 @@ import com.zzy.pojo.User;
 import javafx.collections.ListChangeListener;
 import org.apache.ibatis.annotations.*;
 
+import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 /**
@@ -14,7 +15,15 @@ import java.util.List;
 public interface UserMapperDao {
 
     //增加用户
-    @Insert("insert into `user` (id,username,password,birthady) value (#{id},#{username},#{password},#{birthady})")
+    @Insert({"insert into `user` (id,username,password,birthady) value (#{id},#{username},#{password},#{birthady})" })
+    @Options(useGeneratedKeys = true, keyProperty = "id")//拿到数据库的自增主键，然后回填主键。
+    /*@SelectKey(statement = "select max(id) from  `user`" ,keyProperty = "id" ,before = false ,resultType = Integer.class)
+    在执行完插入后获取主键，主键值注入到入参中的属性
+    */
+    @SelectKey(statement = "select if(max(id)=null,1,max(id)+1) as id from `user` ",keyProperty = "id" ,before = true,resultType = Integer.class)
+   /* @SelectKey(statement = "select if(max(id)=null,1,max(id)+1) as id from `user` ",keyProperty = "id" ,before = true,resultType = Integer.class)
+   * 首先查询出表的主键，然后将主键注入到参数中，然后执行插入，适用 自定义主键
+   * */
     public int addUser(User user);
 
     @Select("select * from user where id=#{id}")
@@ -35,6 +44,7 @@ public interface UserMapperDao {
             @Result(property = "order",column = "id，uid" ,javaType = Order.class//colimn是传递给下一条sql的参数,可以传递多个参数
 
             ,one = @One(select = "com.zzy.dao.OrderMapperDao.findOrderByuserid"))
+
     })
     @Select("select * from `user` where id =#{id}")
     /*在类明上加上``防止和数据库关键字冲突，另外注意使用的一对一关系还是一对多关系，如果在编写是返现类型不匹配

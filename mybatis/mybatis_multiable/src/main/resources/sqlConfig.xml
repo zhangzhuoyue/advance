@@ -24,6 +24,7 @@
         <!--<mapper resource="UserMapper.xml"></mapper>-->
         <!--如果使用注解开发，则将xml文件放到和接口不同名的路径否则会冲突-->
         <package name="com.zzy.dao"/>
+        <package name="com.zzy.annotationDao"/>
        <!-- <mapper class="com.zzy.dao.UserMapperDao"/>-->
 
     </mappers>
