@@ -1,36 +1,5 @@
-### class.getResourceAsStream
-* 路径问题
----
-### 泛型问题
 
----
-### 反射
-```
-https://www.cnblogs.com/onlywujun/p/3519037.html
-使用反射遇到的问题
-https://blog.csdn.net/lc14750429/article/details/82250718
-```
----
-### xml ->bean   bean->xml  dom4j
-
----
-### 内省和反射
-```
-https://blog.csdn.net/weixin_42069143/article/details/82119724
-```
----
-### BigDecimal
-```
-关于JDBC中 ResultSet 对象的 getObject() 方法返回的数字是 BigDecimal 型
-BigDecimal:直接显示，使用的是科学计数法，使用intvalue()进行转换
-Object columnValue = resultSet.getObject(columnLabel);
-if(columnValue instanceof BigDecimal){
-    columnValue = ((BigDecimal) columnValue).intValue();
-}
-使用 intValue() 方法进行强转即可
-
-```
-### mybatis 简介
+### 1. mybatis 简介
     ```
     1. mybatis是一款优秀的半自动持久成框架。他基于对象-关系映射，思想上体现在我们的实体类的成员变量名称和数据库保持一致，我们通过操作dao层对象，mybatis底层转化为sql
     操作数据库。
@@ -38,8 +7,17 @@ if(columnValue instanceof BigDecimal){
     3. mybatis优势：规避了jdbc频繁创建数据库连接，数据库配置硬编码，sql硬编码问题，以及在结果封装的繁琐操作。另外一点他的半自动化使得业务与数据分离，界限清晰，一个专注于业务，
         一个专注于数据。
     ```
+ 
+### 2. mybatis 返回值问题
+    ```
+    1. 删除数据：mybatis删除后可返回对应的记录数，如果没有删除就返回的0
+       
+    2. 修改数据：一次只修改一条语句 成功返回 1 ，一次修改两条及以上语句 成功返回 -1
+    
+    3. 插入数据：
+    ```
 ---
-### mybatis注解开发
+### 3. mybatis注解开发
     ```
      mybatis注解开发使用的注解：
      @select
@@ -50,9 +28,18 @@ if(columnValue instanceof BigDecimal){
      @results  封住结果集  和注解的resultMap对应
      @one       对应associate
      @many         对应collection
+     @resuleMap  引用其他@results定义的映射关系
+     @MapKey     将返回结果封装在map中，指定某一列为key，如果key重复则保留一条数据，可以使用数据去重
+     @Result     在@Results中使用，可以定义字段和类成员的映射关系
+     @InsertProvider
+     @UpdateProvider
+     @DeleteProvider
+     @SelectProvider  构建插入的动态sql
+     <script></script> 要在带注解的映射器接口类中使用动态 SQL，可以使用 script 元素。比如:
+    
     ```
-
-### 一级缓存  二级缓存
+ @selectKey    http://www.mybatis.cn/archives/741.html
+### 4. 一级缓存  二级缓存
  
   ```
      缓存就是内存中的数据,常常来自对数据库查询结果的保存,使用缓存,我们可以避免频繁的与数据库进行交互,进而提高响应速度
@@ -74,9 +61,54 @@ if(columnValue instanceof BigDecimal){
    2. sqlsession调用了clearCache()方法
 
 
+### 5. in 在匹配时的限制
 
+    ```
+    2. mysql中，in语句中参数个数是不限制的。不过对整段sql语句的长度有了限制（max_allowed_packet 单位是字节【B】）。默认是4M
+    1. Oracle中，in语句中可放的最大参数个数是1000个。之前遇到超过1000的情况，可用如下语句，但如此多参数项目会低，可考虑用别的方式优化。
+    ```
+### 6. [ProviderMethodResolver案例](https://blog.csdn.net/weixin_37264997/article/details/81661736)
+    ```
+     @InsertProvider
+      @UpdateProvider
+      @DeleteProvider
+      @SelectProvider
+     * mybatis3.5.1 后可以使用ProviderMethodResolver接口
+     * // 在你的 provider 类中实现 ProviderMethodResolver 接口，默认实现中，会将映射器方法的调用解析到实现的同名方法上
+    ```  
 
+### 7. class.getResourceAsStream
+* 路径问题
+---
+### 8. 泛型问题
 
+---
+### 9. 反射
+```
+https://www.cnblogs.com/onlywujun/p/3519037.html
+使用反射遇到的问题
+https://blog.csdn.net/lc14750429/article/details/82250718
+```
+---
+### 10. xml ->bean   bean->xml  dom4j
+
+---
+### 11. 内省和反射
+```
+https://blog.csdn.net/weixin_42069143/article/details/82119724
+```
+---
+### 12. BigDecimal
+```
+关于JDBC中 ResultSet 对象的 getObject() 方法返回的数字是 BigDecimal 型
+BigDecimal:直接显示，使用的是科学计数法，使用intvalue()进行转换
+Object columnValue = resultSet.getObject(columnLabel);
+if(columnValue instanceof BigDecimal){
+    columnValue = ((BigDecimal) columnValue).intValue();
+}
+使用 intValue() 方法进行强转即可
+
+```
 
 
 
