@@ -65,7 +65,7 @@ public class mybatisTest {
         UserMapperDao mapper = sqlSession.getMapper(UserMapperDao.class);
         User user = new User();
 
-        User i = mapper.selectUser(3);
+        List<User> i = mapper.selectUser("3");
         System.out.println(i);
     }
 
@@ -97,14 +97,14 @@ public class mybatisTest {
     public void oneToOne(){
         UserMapperDao mapper = sqlSession.getMapper(UserMapperDao.class);
 
-       User userOrders = mapper.findUserOrders(1);
+       User userOrders = mapper.findUserOrders1(1);
         System.out.println(userOrders);
     }
 
     @Test
     public void manyToMang(){
         UserMapperDao mapper = sqlSession.getMapper(UserMapperDao.class);
-        User<Order> orderUser = mapper.finduserOrders(4);
+        User<Order> orderUser = mapper.finduserOrders2(4);
         System.out.println(orderUser);
     }
 

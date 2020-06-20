@@ -2,6 +2,7 @@ package com.zzy.pojo;
 
 import com.sun.org.apache.xpath.internal.operations.Or;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
@@ -9,7 +10,8 @@ import java.util.Objects;
  * @author zzy
  * @date 2020/6/16 22:08
  */
-public class User<T> {
+public class User<T> implements Serializable{
+    private static final long serialVersionUID = 1972617240998596022L;
     public Integer id;
     public String username;
     public String password;

@@ -27,9 +27,9 @@ public class MybatisCache {
     @Test
     public void firstCache(){
         UserMapperDao mapper = sqlSession.getMapper(UserMapperDao.class);
-        User userOrders = mapper.findUserOrders(4);
+        User userOrders = mapper.findUserOrders1(4);
         sqlSession.clearCache();
-        User userOrders1 = mapper.findUserOrders(4);
+        User userOrders1 = mapper.findUserOrders1(4);
 
         System.out.println(userOrders == userOrders1);
 
