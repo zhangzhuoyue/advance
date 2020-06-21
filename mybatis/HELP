@@ -90,7 +90,7 @@ https://www.cnblogs.com/onlywujun/p/3519037.html
 https://blog.csdn.net/lc14750429/article/details/82250718
 ```
 ---
-### 10. xml ->bean   bean->xml  dom4j
+### 10. xml ->bean   bean->xml  dom4j   xpath
 
 ---
 ### 11. 内省和反射
@@ -211,12 +211,21 @@ if(columnValue instanceof BigDecimal){
     4. 自定义插件后，插件配置放到mybatis配置文件中。
     
     5. 实现自定义插件
+    
+    6. 查看插件的源码实现，从plug入手，warp 将自定义插件注解中的@Signature中指定的连接的组件和方法和参数，放入到集合中， ->在query查询，查看自定义插件中
+    是否包含拦截当前执行的方法，如果有执行自定义插件方法增强，没有则直接调用。
        
 
+4. 实现分页功能   pageHelper的分页源码
 
 
-
-
+5. 通用mapper  
+     1. 通用mapper概念
+     2. 基于mybatis插件机制，引入tk.mybatis
+     3. 在配置文件中加入插件配置，如果有分页插件，mapper插件配置在分页之前
+     4. 实体类设置主键，主键的使用规则？
+     5. 定义通用mapper接口，可以使用默认的单表查询【基于主键查询】，也可以使用自定义的单表查询。在数据更新查询和插入注意他提供的默认方法中是否按需跟新字段
+     
 
 
 
