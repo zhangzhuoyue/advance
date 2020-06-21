@@ -164,7 +164,18 @@ if(columnValue instanceof BigDecimal){
 
 
 
+---
+### 查看redisCache源码
 
+* 定位问题 在redis中以什么数据结构存储；redis.properties配置文件名已经存放位置；redisCache没有配置文件使用默认的配置。
+    ```
+  1. redisCache没有配置文件使用默认的配置
+     redis配置文件在RedisConfig中存储，设置有默认值，即使不加redis配置文件，可以使用默认值。
+     如果使用配置文件，则将默认配置覆盖。
+  2. redisCache如何读取配置文件，配置文件的名称如何定义的。
+     RedisConfigurationBuilder类中制定了类名称以及路径。加载配置文件进行【properties对象进行加载】
+  3. redis的存储结构是hash  ***
+  ```
 
 
 
