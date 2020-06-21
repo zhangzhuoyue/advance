@@ -116,7 +116,7 @@ if(columnValue instanceof BigDecimal){
     ```
 ---
 
-### 以及缓存源码分析
+### 13. 以及缓存源码分析
 
     ```
     源码分析：
@@ -143,14 +143,14 @@ if(columnValue instanceof BigDecimal){
         一般下执行完commit操作都需要刷新缓存, flushCache-true表示刷新缓存,这样可以避免数据库脏读。所以我们不用设置,默认即可
     ```
 ---
-###  soft软引用  weak 弱引用
+### 14.  soft软引用  weak 弱引用
   
 *  soft软引用
 
 * weak 弱引用
 
 ---
-### @Option(timeout=10,useCache=false,flushCache= Options.FlushCachePolicy.TRUE,fetchSize = 2)
+###  15. @Option(timeout=10,useCache=false,flushCache= Options.FlushCachePolicy.TRUE,fetchSize = 2)
     ```
     timeout 设置sql超时时间，时间单位秒
     useCache 使用二级缓存，默认true使用
@@ -159,13 +159,13 @@ if(columnValue instanceof BigDecimal){
     ```
 ---
 
-### 插叙大流量数据使用mybatis流式查询
+### 16. 插叙大流量数据使用mybatis流式查询
 
 
 
 
 ---
-### 查看redisCache源码
+### 17. 查看redisCache源码
 
 * 定位问题 在redis中以什么数据结构存储；redis.properties配置文件名已经存放位置；redisCache没有配置文件使用默认的配置。
     ```
@@ -179,14 +179,39 @@ if(columnValue instanceof BigDecimal){
   4. 序列化工具 SerializeUtil
   ```
 
+### 18. mybatis自定义插件
 
+* 从自定义插件中看到泛型的作用，上限通配符extends  下限通配符super,在定义只读或只写方法的作用。
 
+1. 插件简述
+    1. 开源框架都会提供插件或其他形式的拓展点,供开发者自行拓展。好处：一是增加了框架的灵活性。二是开发者可以结合实际需求,对框架进行拓展,使其适用当前工作。以MyBatis为例,我们可基于MyBatis插件机制实现分页、分表,监控等功能。由于插件和业务无关,业务也无法感知插件的存在。因此可以无感植入插件,在无形中增强功能
 
-
-
-
-
-
+2. mybatis插件介绍
+    1. Mybatis作为主流的ORM开源框架,这个框架在四大组件
+       (Executor, StatementHandler, ParameterHandler, ResultSetHandler)处提供了易用的插件扩展机制。Mybatis对持久层的操作就是借助于四大核心对象。MyBatis支持用插件对四大核心对象进行拦截,对mybatis来说插件就是拦截器,用来增强核心对象的功能,增强功能本质上是借助于底层的动态代理实现的,也可以说, MyBatis中的四大对象都是代理对象
+    
+    2. Executor - StatementHandler -ParamterHandler  
+       Executor - StatementHandler -ResultSetHandlen 
+      
+    3. MyBatis所允许拦截的方法如下:
+       
+       ```
+       1. 执行器Executor (update, query, commit, rollback等方法) ;
+       2. SQL语法构建器StatementHandler (prepare, parameterize, batch, update,query等方法）;
+       3. 参数处理器ParameterHandler (getParameterObject, setParameters方法) ;
+       4. 结果集处理器ResultSetHandler (handleResultSets, handleOutputParameters等方法) ;
+       ```
+3. mybaits插件原理
+    1. 在四大对象创建的时候
+    
+    2. 拦截案例
+    
+    3. 如何自定义插件
+    
+    4. 自定义插件后，插件配置放到mybatis配置文件中。
+    
+    5. 实现自定义插件
+       
 
 
 
