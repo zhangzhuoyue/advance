@@ -16,8 +16,8 @@ import java.util.List;
  * @author zzy
  * @date 2020/6/17 23:03
  */
-//@CacheNamespace(implementation = PerpetualCache.class) 使用mybatis默认的二级缓存方式缓存
-    @CacheNamespace(implementation = RedisCache.class)
+@CacheNamespace(implementation = PerpetualCache.class) //使用mybatis默认的二级缓存方式缓存
+   // @CacheNamespace(implementation = RedisCache.class)
 public interface UserMapperDao {
 
     //增加用户

@@ -4,12 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="datasource.properties"></properties>
-
+    
+   
 
     <typeAliases>
         <package name="com.zzy.pojo"/><!--sql映射文件中的别名不区分大小写-->
     </typeAliases>
-
+    <plugins>
+        <plugin interceptor="com.zzy.customplugin.MyPlugin">
+            <property name="name" value="tom"/>
+        </plugin>
+    </plugins>
     <environments default="dev">
         <environment id="dev">
             <transactionManager type="JDBC"/>
