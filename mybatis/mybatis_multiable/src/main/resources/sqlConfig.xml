@@ -4,16 +4,25 @@
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
     <properties resource="datasource.properties"></properties>
-    
-   
+
 
     <typeAliases>
         <package name="com.zzy.pojo"/><!--sql映射文件中的别名不区分大小写-->
     </typeAliases>
     <plugins>
+        <plugin interceptor="tk.mybatis.mapper.mapperhelper.MapperInterceptor">
+                <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <!--属性配置名在tk_mapper中以及配置默认方法名，在mybatis中配置插件 使用默认名称-->
+            <!--配置参数的获取都在实现了Interceptor类中获取，插件可以设置什么属性，在那里面看-->
+        </plugin>
         <plugin interceptor="com.zzy.customplugin.MyPlugin">
             <property name="name" value="tom"/>
         </plugin>
+
+        <plugin interceptor="com.github.pagehelper.PageHelper">
+            <property name="dialect" value="mysql"/> <!--分页查询oracle rownum   mybatis使用limit，指定你使用的那家的分页方言-->
+        </plugin>
+
     </plugins>
     <environments default="dev">
         <environment id="dev">
@@ -33,7 +42,8 @@
         <!--如果使用注解开发，则将xml文件放到和接口不同名的路径否则会冲突-->
         <package name="com.zzy.dao"/>
         <package name="com.zzy.annotationDao"/>
-       <!-- <mapper class="com.zzy.dao.UserMapperDao"/>-->
+        <package name="com.zzy.common"/>
+        <!-- <mapper class="com.zzy.dao.UserMapperDao"/>-->
 
     </mappers>
 </configuration>
