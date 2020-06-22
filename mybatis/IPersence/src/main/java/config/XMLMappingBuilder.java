@@ -36,21 +36,21 @@ public class XMLMappingBuilder {
         while (elementIterator.hasNext()){
             Element next = elementIterator.next();
             String name = next.getName();
-            if ("select".equals(name)){
-                String id = next.attributeValue("id");
-                String paramterType = next.attributeValue("paramterType");
-                String resultType = next.attributeValue("resultType");
-                String textTrim = next.getTextTrim();
-                MapperStatement statement = new MapperStatement();
-                statement.setId(id);
-                statement.setParamterType(paramterType);
-                statement.setResultType(resultType);
-                statement.setSql(textTrim);
-                //每个sql配置文件标识 namespace+id
-                configuration.getStatement().put(rootElement.attributeValue("namespace")+"."+id,statement);
-            }
-
+            String id = next.attributeValue("id");
+            String paramterType = next.attributeValue("paramterType");
+            String resultType = next.attributeValue("resultType");
+            String textTrim = next.getTextTrim();
+            MapperStatement statement = new MapperStatement();
+            statement.setId(id);
+            statement.setParamterType(paramterType);
+            statement.setResultType(resultType);
+            statement.setSql(textTrim);
+            //每个sql配置文件标识 namespace+id
+            configuration.getStatement().put(rootElement.attributeValue("namespace")+"."+id,statement);
         }
         return configuration;
     }
+
+
+
 }

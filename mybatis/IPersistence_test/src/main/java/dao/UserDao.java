@@ -17,4 +17,7 @@ public interface UserDao {
 
     //根据条件查询学生信息
     public User findStudentByCondition(User user);
+
+    //更新操作
+    public void updateUser(User user);
 }

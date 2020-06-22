@@ -1,8 +1,11 @@
 package sqlSession;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.VoidType;
 import pojo.Configuration;
 import pojo.MapperStatement;
+import sun.reflect.generics.tree.VoidDescriptor;
 
+import javax.xml.bind.Element;
 import java.lang.reflect.*;
 import java.util.List;
 
@@ -37,6 +40,16 @@ public class DefaultSqlSession implements SqlSession{
 
     }
 
+    @Override
+    public void update(String statementId, Object... params) throws Exception {
+        SimpleExecutor executor = new SimpleExecutor();
+        MapperStatement statement = configuration.getStatement().get(statementId);
+        //将底层的jdbc查询封装在对象中，直接调用
+        executor.update(configuration, statement, params);
+        //return (List<E>)list;
+    }
+
+
     /**
      * 使用jdk动态代理为dao接口生成代理类
      * @param mapperClass
@@ -55,15 +68,23 @@ public class DefaultSqlSession implements SqlSession{
                 String classNamee = method.getDeclaringClass().getName();
                 String statementid= classNamee+"."+methodNamename;
 
+
                 //根据返回值类型判断调用方法
                 Type genericReturnType = method.getGenericReturnType();
                 if (genericReturnType instanceof ParameterizedType){
                     List<Object> objects = selectList(statementid,args);
                     return objects;
+                }else if (genericReturnType == void.class) {
+                    update(statementid, args);
+                    return null;
+                }else {
+                    return selectOne(statementid,args);
                 }
 
 
-                return selectOne(statementid,args);
+
+
+
             }
         });
         return (T)proxyInstance ;

@@ -22,4 +22,13 @@ sql，【从sql配置文件封装对象中获取】
     select * from user
 </select>
 
+<update id="updateUser" paramterType="pojo.User"  >
+    update user set username = #{username} where id = #{id}
+</update>
+
+    <delete id="deleteUser" paramterType="pojo.User">
+
+        delete from user where id = #{id}
+    </delete>
+
 </mapper>
