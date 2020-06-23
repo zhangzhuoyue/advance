@@ -49,6 +49,16 @@ public class DefaultSqlSession implements SqlSession{
         //return (List<E>)list;
     }
 
+    @Override
+    public void insert(String statementId, Object... params) throws Exception {
+        update(statementId, params);
+    }
+
+    @Override
+    public void delete(String statementId, Object... params) throws Exception {
+        update(statementId, params);
+    }
+
 
     /**
      * 使用jdk动态代理为dao接口生成代理类
@@ -68,6 +78,18 @@ public class DefaultSqlSession implements SqlSession{
                 String classNamee = method.getDeclaringClass().getName();
                 String statementid= classNamee+"."+methodNamename;
 
+
+                /*//根据方法名判断执行哪个方法
+                if (methodNamename.contains("update")){
+                    update(statementid, args);
+                    return null;
+                }
+                if (methodNamename.contains("insert")){
+
+                }
+                if (methodNamename.contains("delete")){
+
+                }*/
 
                 //根据返回值类型判断调用方法
                 Type genericReturnType = method.getGenericReturnType();

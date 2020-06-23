@@ -20,4 +20,8 @@ public interface UserDao {
 
     //更新操作
     public void updateUser(User user);
+
+    //删除
+    public void deleteUser(User user);
+    public void insertUser(User user);
 }

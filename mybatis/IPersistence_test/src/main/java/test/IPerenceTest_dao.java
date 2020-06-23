@@ -55,4 +55,44 @@ public class IPerenceTest_dao {
 
 
     }
+
+    @Test
+    public void update(){
+        UserDao mapper = sqlSession.getMapper(UserDao.class);
+        User user = new User();
+        user.setUsername("zhang");
+        user.setId(20);
+       mapper.updateUser(user);
+
+
+
+    }
+
+    @Test
+    public void delete(){
+        UserDao mapper = sqlSession.getMapper(UserDao.class);
+        User user = new User();
+        user.setUsername("zhang");
+        user.setId(19);
+        mapper.deleteUser(user);
+
+
+
+    }
+
+    @Test
+    public void insert(){
+        UserDao mapper = sqlSession.getMapper(UserDao.class);
+        User user = new User();
+        user.setUsername("zhang");
+        user.setId(19);
+        user.setPassword("123123");
+        user.setBirthady("2020-09-23");
+        mapper.insertUser(user);
+
+
+
+    }
+
+
 }

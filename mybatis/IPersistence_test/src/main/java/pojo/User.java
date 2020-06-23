@@ -16,9 +16,9 @@ public class User {
 
     public String username;
 
-    public String passaaword;
+    public String password;
 
-    public String birtha2dy;
+    public String birthady;
 
     public int getId() {
         return id;
@@ -37,19 +37,19 @@ public class User {
     }
 
     public String getPassword() {
-        return passaaword;
+        return password;
     }
 
     public void setPassword(String password) {
-        this.passaaword = password;
+        this.password = password;
     }
 
     public String getBirthady() {
-        return birtha2dy;
+        return birthady;
     }
 
     public void setBirthady(String birthady) {
-        this.birtha2dy = birthady;
+        this.birthady = birthady;
     }
 
     @Override
@@ -57,8 +57,8 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", username='" + username + '\'' +
-                ", password='" + passaaword + '\'' +
-                ", birthady='" + birtha2dy + '\'' +
+                ", password='" + password + '\'' +
+                ", birthady='" + birthady + '\'' +
                 '}';
     }
 }

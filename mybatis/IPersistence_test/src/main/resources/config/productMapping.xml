@@ -31,4 +31,8 @@ sql，【从sql配置文件封装对象中获取】
         delete from user where id = #{id}
     </delete>
 
+    <insert id="insertUser" paramterType="pojo.User">
+        insert into `user` (id,username,password,birthady) value(#{id},#{username},#{password},#{birthady})
+    </insert>
+
 </mapper>
