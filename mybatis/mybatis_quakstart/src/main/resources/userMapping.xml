@@ -10,7 +10,7 @@
 
     <!--增加-->
     <insert id="insertUser" parameterType="com.zzy.pojo.User">
-        insert into user values (#{id},#{username},#{password},#{birthady})
+        insert into user (id,username,password,birthady)values (#{id},#{username},#{password},#{birthady})
     </insert>
     <!--更新-->
     <update id="updateUser" parameterType="com.zzy.pojo.User">
@@ -35,7 +35,7 @@
     </select>
 
     <select id="findusers" parameterType="list" resultType="user">
-        select * from user
+        select id,username,password,birthady,create_time createTime,create_time1 createTime1,create_time2 createTime2  from user
         /*
         collection: 要做foreach的对象，作为入参时，List对象默认用"list"代替作为键，数组对象有"array"代替作为键，Map对象没有默认的键。当然在作为入参时可以使用@Param("keyName")来设置键，设置keyName后，list,array将会失效。 除了入参这种情况外，还有一种作为参数对象的某个字段的时候。举个例子：如果User有属性List ids。入参是User对象，那么这个collection = "ids".如果User有属性Ids ids;其中Ids是个对象，Ids有个属性List id;入参是User对象，那么collection = "ids.id"
         在使用foreach的时候最关键的也是最容易出错的就是collection属性，该属性是必须指定的，但是在不同情况下，该属性的值是不一样的，主要有一下3种情况：
@@ -51,4 +51,14 @@
             </foreach>
         </where>
     </select>
+
+    <!---->
+    <select id="getUser" parameterType="user" resultType="user">
+        select id,username,password,birthady,create_time createTime,create_time1 createTime1,create_time2 createTime2 from `user` where id =#{id}
+    </select>
+
+    <insert id="insertUser1" parameterType="user">
+        insert into `user` (id,username,password,birthady,create_time,create_time2) values
+        (#{id} ,#{username},#{password},#{birthady},#{createTime},#{createTime2})
+    </insert>
 </mapper>

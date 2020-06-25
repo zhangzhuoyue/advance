@@ -9,8 +9,13 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Time;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Year;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,7 +30,7 @@ public class Mybatis_test {
     public void before() throws IOException {
         InputStream resourceAsStream = Resources.getResourceAsStream("sqlConfig.xml");
         SqlSessionFactory build = new SqlSessionFactoryBuilder().build(resourceAsStream);
-         sqlSession = build.openSession();
+         sqlSession = build.openSession(true);
     }
     /*查询操作*/
     @Test
@@ -91,12 +96,61 @@ public class Mybatis_test {
     public void test2(){
         UserDao mapper = sqlSession.getMapper(UserDao.class);
         List<User> users = new ArrayList<>();
-        for (int i = 0 ;i < 20 ;i++){
+        for (int i = 0 ;i < 41 ;i++){
             User user = new User();
             user.setId(i);
             users.add(user);
         }
         List<User> findusers = mapper.findusers(users);
         System.out.println(findusers);
+    }
+
+    @Test
+    public void  test3(){
+        UserDao mapper = sqlSession.getMapper(UserDao.class);
+        User user = new User();
+        user.setId(39);
+        User user1 = mapper.getUser(user);
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = sf.format(user1.getCreateTime());
+        System.out.println(format);
+
+    }
+
+    @Test
+    public void test() throws ParseException {
+        //在插入操作中，需要自动提交事务或手动提交事务。
+        /**
+         * 在插入时间：
+         * 1. 时间统一使用java.util.Date存储，则mybatis映射，根据数据存储类型装换为date或者timestamp类型
+         * 1. 在使用中使用java.sql.Date  :DATE     java.sql.timestamp :TIMESTAMP
+         * 两种方式都可以在插入，和查询中正常使用。
+         */
+        UserDao mapper = sqlSession.getMapper(UserDao.class);
+        User user = new User();
+        user.setId(42);
+        user.setPassword("123");
+        user.setUsername("345");
+        user.setBirthady("2020-02-01");
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String format = sf.format(new Date());
+        Date parse = sf.parse(format);
+        user.setCreateTime(new java.sql.Date(new Date().getTime()));//数据库类型date，传递util.date，会自动截取util.date中的时间
+        user.setCreateTime1(new Time(new Date().getTime()));
+
+        user.setCreateTime2(new Timestamp(new Date().getTime()));
+        mapper.insertUser1(user);
+
+    }
+
+    @Test
+    public void test5(){
+        UserDao mapper = sqlSession.getMapper(UserDao.class);
+        User user = new User();
+        user.setId(31);
+        user.setPassword("123");
+        user.setUsername("345");
+        user.setBirthady("2020-02-01");
+        mapper.insertUser(user);
     }
 }

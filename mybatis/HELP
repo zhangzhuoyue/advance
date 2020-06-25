@@ -18,7 +18,7 @@
     ```
 ---
 ### 3. mybatis注解开发
-    ```
+     ```
      mybatis注解开发使用的注解：
      @select
      @update
@@ -36,11 +36,10 @@
      @DeleteProvider
      @SelectProvider  构建插入的动态sql
      <script></script> 要在带注解的映射器接口类中使用动态 SQL，可以使用 script 元素。比如:
-    
     ```
  @selectKey    http://www.mybatis.cn/archives/741.html
 ### 4. 一级缓存  二级缓存
- 
+
   ```
      缓存就是内存中的数据,常常来自对数据库查询结果的保存,使用缓存,我们可以避免频繁的与数据库进行交互,进而提高响应速度
  ```
@@ -147,7 +146,7 @@ if(columnValue instanceof BigDecimal){
   
 *  soft软引用
 
-* weak 弱引用
+*  weak 弱引用
 
 ---
 ###  15. @Option(timeout=10,useCache=false,flushCache= Options.FlushCachePolicy.TRUE,fetchSize = 2)
@@ -178,7 +177,7 @@ if(columnValue instanceof BigDecimal){
   
   4. 序列化工具 SerializeUtil
   ```
-
+---
 ### 18. mybatis自定义插件
 
 * 从自定义插件中看到泛型的作用，上限通配符extends  下限通配符super,在定义只读或只写方法的作用。
@@ -226,6 +225,55 @@ if(columnValue instanceof BigDecimal){
      4. 实体类设置主键，主键的使用规则？
      5. 定义通用mapper接口，可以使用默认的单表查询【基于主键查询】，也可以使用自定义的单表查询。在数据更新查询和插入注意他提供的默认方法中是否按需跟新字段
      
+### 19. 设计模式
+
+---
+
+### 20. 缓存
+
+1. 一级缓存在分布式中依然不安全，所有使用立即关闭
+
+2. 二级缓存，基于namespeace,存在脏读，不同空间的缓存存在脏读。
+
+
+---
+### 21. 持久化操作中关于时间的操作
+
+1. java.util.Date和java.sql.Date的区别
+    ```
+   1. 继承关系：java.lang.Object --》 java.util.Date --》 java.sql.Date
+   2.   java.util.Date 除了SQL语句的情况下面使用,通常格式化或者得到当前时间都是用他
+        java.sql.Date 针对SQL语句使用的，它只包含日期而没有时间部分
+   3. 二者可以相互转化：都有getTime方法返回毫秒数，可以直接构建java.sql.Date sqlDate = new java.sql.Date(new java.util.Date().getTime())  ;java.util.Date date = new java.sql.Date(new java.sql.Date().getTime()); 
+   
+   4.  二者和数据库中DATE   TIMESTAMP中的对应关系
+        * 在插入时间：
+            1. 时间统一使用java.util.Date存储，则mybatis映射，根据数据存储类型装换为date或者timestamp类型
+            1. 在使用中使用java.sql.Date  :DATE     java.sql.timestamp :TIMESTAMP
+            两种方式都可以在插入，和查询中正常使用。 
+   5. 使用java.util.Date作为参数传递给Mapper时，不管MySQL的日期字段类型是date、datetime或者timestamp中的哪一种，MyBatis都能够自动做出类型转换
+   6. 使用java.util.Date作为实体的日期类型时（JAVA没有DateTime这个类，Date类能够同时表示日期和时间），java.util.Date实际上是能够表示MySQL的三种字段类型：1、date  2、datetime   3、timestamp
+   7. https://www.jianshu.com/p/46c3635f2268
+   ``` 
+
+### 22. mybatis的序列化工具
+
+1.  源码中将SerializeUtile 定义为 final类，希望该类不允许任何类继承，并且不允许其他人对这个类有任何改动，方法定义为静态方法，但是将构造器暴露给外部。
+
+---
+### 23. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
