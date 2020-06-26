@@ -261,12 +261,36 @@ if(columnValue instanceof BigDecimal){
 1.  源码中将SerializeUtile 定义为 final类，希望该类不允许任何类继承，并且不允许其他人对这个类有任何改动，方法定义为静态方法，但是将构造器暴露给外部。
 
 ---
-### 23. 
+### 23. 数据库时间范围查询
 
+1. 使用java.sql.Date接受数据库DATE类型参数，自动输出'2020-09-12'
+2. 查询时间范围，传递的是时间字符串
+   ```
+      str_to_date(#{beginDate},'%Y-%m-%d')  将字符串转换时间类型，可以用于查询DATA
+      str_to_date(#{beginDate},'%Y-%m-%d %H:%i:%s')  将字符串转换为时间戳类型，用于查询TIMESTAMP
+      使用Calendar从日期对象中获取时间时间     将java.util.Date 转换为java.sql.Date则得到日期
+   ```
+3. 查询时间范围，传递的是java.util.Date
+    ```
+   将日期参数直接传递到映射器配置文件中。
+   ```
+4. 数据库日期类型和java日期类型
+    ```
+   1. java.util.Date通过mybatis自动类型匹配，可以自动转换为DATE  TIMESTAMP
+   2.java.sql.Date  :DATE      java.sql.timestamp :TIMESTAMP
+   ```
 
+---
+### 返回结果是Map，将查询的字段名：key  结果值：value
 
+---
+### @param
 
-
+    ```
+     1. 使用@param指定入参名称，则在paramterType不需要指定入参类型
+     2. @param传递的集合或实体对象，则获取参数的方式：参数名.属性名   或参数名.key
+     3.没有使用@param，指定paramterType  ,则直接再#{}中写入属性名，或者key
+    ```
 
 
 

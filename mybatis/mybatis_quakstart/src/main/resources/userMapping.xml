@@ -17,9 +17,9 @@
         update user set username = #{username} , birthady = #{birthady} where  id = #{id}
     </update>
     <!--删除-->
-    <delete id="deleteUser" parameterType="integer">
+   <!-- <delete id="deleteUser" parameterType="integer">
         delete from user where id =#{id}
-    </delete>
+    </delete>-->
 
     <!--多条件查询-->
     <select id="findByCondition" parameterType="user" resultType="user">
@@ -61,4 +61,26 @@
         insert into `user` (id,username,password,birthady,create_time,create_time2) values
         (#{id} ,#{username},#{password},#{birthady},#{createTime},#{createTime2})
     </insert>
+
+    <!--时间范围查询 传递参数是date时间函数-->
+    <select id="findUserByTime" parameterType="map" resultType="map">
+        <![CDATA[select password,username from user where create_time >= #{beginTime} and create_time <= #{endTime}]]>
+    </select>
+    <!--时间查询 ，传递参数是字符串，需要数据库函数转换-->
+    <select id="findUserByStringTime" resultType="map" >
+        <![CDATA[  select id,username,password,birthady,create_time createTime,create_time1 createTime1,create_time2 createTime2 from user where create_time >= str_to_date(#{beginDate},'%Y-%m-%d') and create_time <= str_to_date(#{endDate},'%Y-%m-%d')]]>
+    </select>
+
+    <!--根据时间戳范围查询  查询条件是时间java.util.date-->
+    <select id="findUsersByTimestamp" resultType="user" >
+        <![CDATA[select id,username,password,birthady,create_time createTime,create_time1 createTime1,create_time2 createTime2  from `user` where create_time2 >= #{beginDate} and create_time2 <= #{endDate}]]>
+    </select>
+    <!--根据时间戳范围查询  查询条件是时间String-->
+    <select id="findUsersByTimestampString" resultType="user" >
+        <![CDATA[select id,username,password,birthady,create_time createTime,create_time1 createTime1,create_time2 createTime2  from `user` where create_time2 >= str_to_date(#{beginDate},'%Y-%m-%d %H:%i:%s') and create_time2 <= str_to_date(#{endDate},'%Y-%m-%d %H:%i:%s')]]>
+    </select>
+
+    <select id="findByMap" resultType="map" >
+        select * from user where id=#{map.id}
+    </select>
 </mapper>
