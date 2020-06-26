@@ -16,8 +16,16 @@ public class User {
     private String password;
     private String birthady;
     private Date createTime;
-    private Time createTime1;
+    private java.util.Date createTime1;
     private Timestamp createTime2;
+
+    public java.util.Date getCreateTime1() {
+        return createTime1;
+    }
+
+    public void setCreateTime1(java.util.Date createTime1) {
+        this.createTime1 = createTime1;
+    }
 
     @Override
     public String toString() {
@@ -72,13 +80,6 @@ public class User {
         this.createTime = createTime;
     }
 
-    public Time getCreateTime1() {
-        return createTime1;
-    }
-
-    public void setCreateTime1(Time createTime1) {
-        this.createTime1 = createTime1;
-    }
 
     public Timestamp getCreateTime2() {
         return createTime2;
